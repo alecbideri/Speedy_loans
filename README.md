@@ -27,6 +27,13 @@ To get started with Speedy Loans, follow these steps:
 
 3. Run the application and start exploring its features.
 
+## screen shots
+
+![log_gui](https://github.com/alecbideri/Speedy_loans/assets/101627722/d258e6dc-ad67-435e-ba40-70f8db87915b)
+![admin gui](https://github.com/alecbideri/Speedy_loans/assets/101627722/ddc40692-117a-4a94-bbde-8c6935a6dba1)
+
+Above are one of the designs that includes in the project..
+
 ## Contributions
 
 Contributions to Speedy Loans are welcome! If you have ideas for improvements or new features, feel free to open an issue or submit a pull request. Your contributions can help enhance the functionality and usability of the system for everyone.
