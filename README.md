@@ -30,7 +30,8 @@ To get started with Speedy Loans, follow these steps:
 ## screen shots
 
 ![log_gui](https://github.com/alecbideri/Speedy_loans/assets/101627722/d258e6dc-ad67-435e-ba40-70f8db87915b)
-![admin gui](https://github.com/alecbideri/Speedy_loans/assets/101627722/ddc40692-117a-4a94-bbde-8c6935a6dba1)
+![vers](https://github.com/alecbideri/Speedy_loans-in-java/assets/101627722/418a0141-9596-4fcf-ad28-c16fd391727e)
+
 
 Above are one of the designs that includes in the project..
 
