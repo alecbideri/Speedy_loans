@@ -133,26 +133,79 @@ public class D_CUSTOMERS {
         return count;
     }
       
-      
-       public boolean check_login_customer(String email, String pass) {
-        boolean isValid = false;
+       // Modified method to return customer object on successful login
+    public Model_Customers check_login_customer(String email, String pass) {
+        Model_Customers customer = null;
         try {
-            Connection con = DriverManager.getConnection(url, username,password);
+            Connection con = DriverManager.getConnection(url, username, password);
             String sql_select = "SELECT * FROM customers WHERE email = ? AND password = ?";
             PreparedStatement st = con.prepareStatement(sql_select);
             st.setString(1, email);
             st.setString(2, pass);
             ResultSet rs = st.executeQuery();
-            isValid = rs.next(); // If a row is returned, the user with the provided user_id and password exists
+
+            if (rs.next()) {
+                // If a row is returned, user with provided email and password exists
+                // Create a customer object
+                customer = new Model_Customers();
+                customer.setCustomer_id(rs.getInt("customer_id"));
+                customer.setName(rs.getString("name"));
+                customer.setEmail(rs.getString("email"));
+                customer.setAddress(rs.getString("address"));
+                customer.setContact_number(rs.getString("contact_number"));
+                // You can set other properties as needed
+            } else {
+                // No user found with the provided email and password
+                System.out.println("Invalid email or password");
+            }
+
             rs.close();
             st.close();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Sevrer error");
+            JOptionPane.showMessageDialog(null, "Database error");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Server error");
         }
-        return isValid;
+        return customer;
     }
+
+
+    // New method to get customer information by email
+    public Model_Customers selectCustomerInfoByEmail(String email) {
+        Model_Customers customerInfo = null;
+        try {
+            Connection con = DriverManager.getConnection(url, username, password);
+            String selectQuery = "SELECT c.name, l.loan, l.interest_rate, l.duration, l.payback_month, l.payback_amount FROM customers c INNER JOIN loans l ON c.customer_id = l.customer_id WHERE c.email = ?";
+            PreparedStatement st = con.prepareStatement(selectQuery);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                customerInfo = new Model_Customers();
+                customerInfo.setName(rs.getString("name"));
+                customerInfo.setLoan(rs.getDouble("loan"));
+                customerInfo.setInterest_rate(rs.getDouble("interest_rate"));
+                customerInfo.setDuration(rs.getInt("duration"));
+                customerInfo.setPayback_month(rs.getInt("payback_month"));
+                customerInfo.setPayback(rs.getDouble("payback_amount"));
+            }
+
+            rs.close();
+            st.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database error");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Server error");
+        }
+        return customerInfo;
+    }
+ 
 
 }
 

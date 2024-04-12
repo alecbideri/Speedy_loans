@@ -3,6 +3,7 @@ import Model.Model_Users;
 import DAO.D_USERS;
 import DAO.D_CUSTOMERS;
 import DAO.D_LOANS;
+import Model.Model_Customers;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -219,10 +220,9 @@ public class LOGIN_GUI extends javax.swing.JFrame {
            Model_Users users = new Model_Users();
            D_USERS d_users = new D_USERS();
            D_CUSTOMERS d_customer = new D_CUSTOMERS();
-           
+
            String email_id = email_field.getText();
            String pass_customer = pass_field.getText();
-           
 
            String user_id = email_field.getText();
            String password = pass_field.getText();
@@ -233,21 +233,21 @@ public class LOGIN_GUI extends javax.swing.JFrame {
            if (check.isSelected()) {
                // Admin login mode
                if (d_users.check_login(user_id, password)) {
-                   
                    String logged_in_user_name = d_users.getUsername(user_id);
                    this.dispose();
                    new ADMIN_DASHBOARD(logged_in_user_name).show();
                } else {
-                   JOptionPane.showMessageDialog(null , "Admin login failed. Please check your credentials.");
+                   JOptionPane.showMessageDialog(null, "Admin login failed. Please check your credentials.");
                }
            } else {
                // Customer/User login mode
-//               String logged_in_customer = d
-               if (d_customer.check_login_customer(email_id, pass_customer)) {
+               Model_Customers loggedInCustomer = d_customer.check_login_customer(email_id, pass_customer);
+               if (loggedInCustomer != null) {
+                   // Customer login successful
                    this.dispose();
-                   new CUSTOMER_DASHBOARD().show();
+                   new CUSTOMER_DASHBOARD(email_id).show(); // Pass the logged-in customer object to the dashboard
                } else {
-                   JOptionPane.showMessageDialog(null , "User login failed. Please check your credentials.");
+                   JOptionPane.showMessageDialog(null, "User login failed. Please check your credentials.");
                }
            }
        

@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package VIEW;
+import DAO.D_CUSTOMERS;
+import Model.Model_Customers;
 
 /**
  *
@@ -14,8 +16,12 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
     /**
      * Creates new form CUSTOMER_DASHBOARD
      */
-    public CUSTOMER_DASHBOARD() {
+    private String email ;
+
+    public CUSTOMER_DASHBOARD(String email) {
+        this.email = email;
         initComponents();
+        display_customer_info();
     }
 
     /**
@@ -31,14 +37,14 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
         home_btn = new javax.swing.JLabel();
         payment_btn = new javax.swing.JLabel();
         logout_btn = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        welcome = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        full_name = new javax.swing.JLabel();
+        loan_amount = new javax.swing.JLabel();
+        rate = new javax.swing.JLabel();
+        payback = new javax.swing.JLabel();
+        monthly_pay = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         reprort_btn = new javax.swing.JButton();
 
@@ -61,8 +67,8 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("Welcome Back:");
+        welcome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        welcome.setText("Welcome Back:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,11 +81,11 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
                 .addComponent(payment_btn)
                 .addGap(111, 111, 111)
                 .addComponent(logout_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(266, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(248, 248, 248))
+                .addComponent(welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +96,7 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
                     .addComponent(payment_btn)
                     .addComponent(logout_btn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
-                .addComponent(jLabel6)
+                .addComponent(welcome)
                 .addContainerGap())
         );
 
@@ -98,20 +104,20 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(102, 255, 204));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Full Name : ");
+        full_name.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        full_name.setText("Full Name : ");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("Loan Amount:");
+        loan_amount.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        loan_amount.setText("Loan Amount:");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setText("Interest Rate:");
+        rate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        rate.setText("Interest Rate:");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("Payback Amount :");
+        payback.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        payback.setText("Payback Amount :");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setText("Monthly Payments:");
+        monthly_pay.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        monthly_pay.setText("Monthly Payments:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -120,26 +126,26 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addContainerGap(316, Short.MAX_VALUE))
+                    .addComponent(full_name)
+                    .addComponent(loan_amount)
+                    .addComponent(rate)
+                    .addComponent(payback)
+                    .addComponent(monthly_pay))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(122, 122, 122)
-                .addComponent(jLabel4)
+                .addComponent(full_name)
                 .addGap(74, 74, 74)
-                .addComponent(jLabel7)
+                .addComponent(loan_amount)
                 .addGap(74, 74, 74)
-                .addComponent(jLabel8)
+                .addComponent(rate)
                 .addGap(74, 74, 74)
-                .addComponent(jLabel9)
+                .addComponent(payback)
                 .addGap(74, 74, 74)
-                .addComponent(jLabel10)
+                .addComponent(monthly_pay)
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -156,7 +162,7 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(reprort_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,10 +189,7 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,6 +209,20 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
         new LOGIN_GUI().show();
     }//GEN-LAST:event_logout_btnMouseClicked
 
+     private void display_customer_info(){
+         
+         D_CUSTOMERS d_customer = new D_CUSTOMERS();
+         Model_Customers customer = d_customer.selectCustomerInfoByEmail(email);
+         
+         full_name.setText("Full Name : " + customer.getName());
+         welcome.setText("Welcome Back: " + customer.getName());
+         rate.setText("Interest rate : "+String.valueOf(customer.getInterest_rate()) + "%");
+         payback.setText("Payback: "+ String.valueOf(customer.getPayback())+ " RWF");
+         monthly_pay.setText("Monthly Payment: " +String.valueOf(customer.getPayback_month())+" RWF");
+         loan_amount.setText("Loan Amount : " + String.valueOf(customer.getLoan()) + " RWF");
+         
+         
+     }
     /**
      * @param args the command line arguments
      */
@@ -234,27 +251,28 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        String email = "username";
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CUSTOMER_DASHBOARD().setVisible(true);
+                new CUSTOMER_DASHBOARD(email).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel full_name;
     private javax.swing.JLabel home_btn;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel loan_amount;
     private javax.swing.JLabel logout_btn;
+    private javax.swing.JLabel monthly_pay;
+    private javax.swing.JLabel payback;
     private javax.swing.JLabel payment_btn;
+    private javax.swing.JLabel rate;
     private javax.swing.JButton reprort_btn;
+    private javax.swing.JLabel welcome;
     // End of variables declaration//GEN-END:variables
 }
