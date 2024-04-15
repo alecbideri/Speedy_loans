@@ -27,6 +27,11 @@ To get started with Speedy Loans, follow these steps:
 
 3. Run the application and start exploring its features.
 
+4. ## This is an extensive documentation about the system itself.
+
+      [Speedy Loans documentation.pdf](https://github.com/alecbideri/Speedy_loans-in-java/files/14981395/Speedy.Loans.documentation.pdf)
+
+
 ## screen shots
 
 LOGIN FORM 
