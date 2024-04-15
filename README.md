@@ -29,8 +29,13 @@ To get started with Speedy Loans, follow these steps:
 
 ## screen shots
 
+LOGIN FORM 
 ![log_gui](https://github.com/alecbideri/Speedy_loans/assets/101627722/d258e6dc-ad67-435e-ba40-70f8db87915b)
+ADMIN DASHBOARD
 ![vers](https://github.com/alecbideri/Speedy_loans-in-java/assets/101627722/418a0141-9596-4fcf-ad28-c16fd391727e)
+CUSTOMER DASHBOARD 
+![eee](https://github.com/alecbideri/Speedy_loans-in-java/assets/101627722/f313c2b5-b20b-4bb1-aa5a-e9421f6e87c6)
+
 
 
 Above are one of the designs that includes in the project..
