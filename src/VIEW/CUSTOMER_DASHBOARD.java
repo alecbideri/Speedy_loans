@@ -6,6 +6,19 @@
 package VIEW;
 import DAO.D_CUSTOMERS;
 import Model.Model_Customers;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,7 +48,6 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         home_btn = new javax.swing.JLabel();
-        payment_btn = new javax.swing.JLabel();
         logout_btn = new javax.swing.JLabel();
         welcome = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -56,9 +68,6 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
         home_btn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         home_btn.setText("Home");
 
-        payment_btn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        payment_btn.setText("Payments");
-
         logout_btn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         logout_btn.setText("Logout");
         logout_btn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -75,15 +84,13 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(254, 254, 254)
+                .addGap(373, 373, 373)
                 .addComponent(home_btn)
-                .addGap(134, 134, 134)
-                .addComponent(payment_btn)
-                .addGap(111, 111, 111)
+                .addGap(84, 84, 84)
                 .addComponent(logout_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(548, Short.MAX_VALUE)
                 .addComponent(welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -93,7 +100,6 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(home_btn)
-                    .addComponent(payment_btn)
                     .addComponent(logout_btn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
                 .addComponent(welcome)
@@ -152,9 +158,14 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/speedy_big.png"))); // NOI18N
 
         reprort_btn.setBackground(new java.awt.Color(102, 255, 204));
-        reprort_btn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        reprort_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/290137_clipboard_document_file_list_report_icon.png"))); // NOI18N
-        reprort_btn.setText("Report");
+        reprort_btn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reprort_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICONS/185102_receipt_shopping_icon.png"))); // NOI18N
+        reprort_btn.setText("Bill");
+        reprort_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reprort_btnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -208,6 +219,47 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
         this.dispose();
         new LOGIN_GUI().show();
     }//GEN-LAST:event_logout_btnMouseClicked
+
+    private void reprort_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reprort_btnActionPerformed
+          try {
+            String fileName = "Loan_report_" + System.currentTimeMillis() + ".pdf"; // Unique filename based on timestamp
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(fileName));
+            Document document = new Document(pdfDoc);
+            Color blueColor = new DeviceRgb(0, 0, 255);
+            // Title of the report
+            document.add(new Paragraph("Loan Report").setFontColor(blueColor).setBold().setFontSize(20f));
+            document.add(new Paragraph("_________________"));
+            document.add(new Paragraph());
+
+            // Table header
+            Table table = new Table(new float[]{1, 3, 3, 5, 2}).useAllAvailableWidth();
+            table.addCell(new Cell().add(new Paragraph("Full names")));
+            table.addCell(new Cell().add(new Paragraph("Loan Amount")));
+            table.addCell(new Cell().add(new Paragraph("Interest Rate")));
+            table.addCell(new Cell().add(new Paragraph("Payback")));
+            table.addCell(new Cell().add(new Paragraph("Monthly payment")));
+
+            // Populate table with customer data
+              D_CUSTOMERS d_customer = new D_CUSTOMERS();
+              Model_Customers customer = d_customer.selectCustomerInfoByEmail(email);
+
+                table.addCell(new Cell().add(new Paragraph(customer.getName())));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(customer.getLoan()))));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(customer.getInterest_rate()))));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(customer.getPayback()))));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(customer.getPayback_month()))));
+            
+
+            // Add the table to the document
+            document.add(table);
+
+            document.close();
+            JOptionPane.showMessageDialog(this, "Report generated successfully!");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LOAN_REG_GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_reprort_btnActionPerformed
 
      private void display_customer_info(){
          
@@ -270,7 +322,6 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
     private javax.swing.JLabel logout_btn;
     private javax.swing.JLabel monthly_pay;
     private javax.swing.JLabel payback;
-    private javax.swing.JLabel payment_btn;
     private javax.swing.JLabel rate;
     private javax.swing.JButton reprort_btn;
     private javax.swing.JLabel welcome;
