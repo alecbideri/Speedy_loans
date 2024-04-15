@@ -241,8 +241,8 @@ public class LOGIN_GUI extends javax.swing.JFrame {
                }
            } else {
                // Customer/User login mode
-               Model_Customers loggedInCustomer = d_customer.check_login_customer(email_id, pass_customer);
-               if (loggedInCustomer != null) {
+                
+               if (d_customer.check_login(email_id, pass_customer)) {
                    // Customer login successful
                    this.dispose();
                    new CUSTOMER_DASHBOARD(email_id).show(); // Pass the logged-in customer object to the dashboard

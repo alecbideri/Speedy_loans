@@ -134,30 +134,17 @@ public class D_CUSTOMERS {
     }
       
        // Modified method to return customer object on successful login
-    public Model_Customers check_login_customer(String email, String pass) {
-        Model_Customers customer = null;
+        public boolean check_login(String user_name, String pass) {
+        boolean isValid = false;
         try {
             Connection con = DriverManager.getConnection(url, username, password);
             String sql_select = "SELECT * FROM customers WHERE email = ? AND password = ?";
             PreparedStatement st = con.prepareStatement(sql_select);
-            st.setString(1, email);
+            st.setString(1, user_name);
             st.setString(2, pass);
             ResultSet rs = st.executeQuery();
 
-            if (rs.next()) {
-                // If a row is returned, user with provided email and password exists
-                // Create a customer object
-                customer = new Model_Customers();
-                customer.setCustomer_id(rs.getInt("customer_id"));
-                customer.setName(rs.getString("name"));
-                customer.setEmail(rs.getString("email"));
-                customer.setAddress(rs.getString("address"));
-                customer.setContact_number(rs.getString("contact_number"));
-                // You can set other properties as needed
-            } else {
-                // No user found with the provided email and password
-                System.out.println("Invalid email or password");
-            }
+            isValid = rs.next();
 
             rs.close();
             st.close();
@@ -169,7 +156,7 @@ public class D_CUSTOMERS {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Server error");
         }
-        return customer;
+        return isValid ;
     }
 
 

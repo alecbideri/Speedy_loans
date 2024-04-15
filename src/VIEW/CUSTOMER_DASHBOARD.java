@@ -262,17 +262,38 @@ public class CUSTOMER_DASHBOARD extends javax.swing.JFrame {
     }//GEN-LAST:event_reprort_btnActionPerformed
 
      private void display_customer_info(){
-         
-         D_CUSTOMERS d_customer = new D_CUSTOMERS();
+
+            D_CUSTOMERS d_customer = new D_CUSTOMERS();
          Model_Customers customer = d_customer.selectCustomerInfoByEmail(email);
-         
-         full_name.setText("Full Name : " + customer.getName());
-         welcome.setText("Welcome Back: " + customer.getName());
-         rate.setText("Interest rate : "+String.valueOf(customer.getInterest_rate()) + "%");
-         payback.setText("Payback: "+ String.valueOf(customer.getPayback())+ " RWF");
-         monthly_pay.setText("Monthly Payment: " +String.valueOf(customer.getPayback_month())+" RWF");
-         loan_amount.setText("Loan Amount : " + String.valueOf(customer.getLoan()) + " RWF");
-         
+
+         if (customer != null) {
+             String customerName = customer.getName();
+             welcome.setText("Welcome Back: " + customerName);
+             full_name.setText("Full Name : " + customerName);
+
+             // Check if loan information is available
+             if (customer.getLoan()!= 0) {
+                 // If loan is provided, set loan-related labels
+                 rate.setText("Interest rate : "+String.valueOf(customer.getInterest_rate()) + "%");
+                 payback.setText("Payback: "+ String.valueOf(customer.getPayback())+ " RWF");
+                 monthly_pay.setText("Monthly Payment: " +String.valueOf(customer.getPayback_month())+" RWF");
+                 loan_amount.setText("Loan Amount : " + String.valueOf(customer.getLoan()) + " RWF");
+             } else {
+                 // If loan is not provided, set loan-related labels to N/A
+                 rate.setText("Interest rate : N/A");
+                 payback.setText("Payback: N/A");
+                 monthly_pay.setText("Monthly Payment: N/A");
+                 loan_amount.setText("Loan Amount : N/A");
+             }
+         } else {
+             // Handle case when no records are returned
+             welcome.setText("Welcome Back: N/A");
+             full_name.setText("Full Name : N/A");
+             rate.setText("Interest rate : N/A");
+             payback.setText("Payback: N/A");
+             monthly_pay.setText("Monthly Payment: N/A");
+             loan_amount.setText("Loan Amount : N/A");
+         }
          
      }
     /**
